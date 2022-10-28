@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Malom_Game", "Malom_Game\Malom_Game.csproj", "{81A8598B-D032-4C20-9AE8-37AC5C01ACA4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{81A8598B-D032-4C20-9AE8-37AC5C01ACA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81A8598B-D032-4C20-9AE8-37AC5C01ACA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81A8598B-D032-4C20-9AE8-37AC5C01ACA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81A8598B-D032-4C20-9AE8-37AC5C01ACA4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0C0C1FEC-B01D-46A2-8073-3FE0D617324B}
+	EndGlobalSection
+EndGlobal

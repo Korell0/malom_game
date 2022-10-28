@@ -15,6 +15,7 @@ namespace Malom_Game
         public Form1()
         {
             InitializeComponent();
+            List<Panel> panelek = new List<Panel>();
         }
     }
 }

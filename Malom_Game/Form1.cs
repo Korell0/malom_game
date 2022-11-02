@@ -22,5 +22,9 @@ namespace Malom_Game
         {
 
         }
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

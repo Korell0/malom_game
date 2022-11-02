@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,7 +13,7 @@ namespace Malom_Game
 {
     public partial class menu : Form
     {
-        static List<TextBox> jatekosnevek = new List<TextBox>();
+        static List<TextBox> jatekosnevek = new List<TextBox>();    
         public menu()
         {
             InitializeComponent();
@@ -25,13 +26,15 @@ namespace Malom_Game
             {
                 PictureBox ujpicturebox = new PictureBox();
                 this.Controls.Add(ujpicturebox);
+                ujpicturebox.SizeMode = PictureBoxSizeMode.Zoom;
+                ujpicturebox.Width = 20;
                 if (i == 0)
                 {
-                    ujpicturebox.Image = Image.FromFile("korong_a.png");
+                    ujpicturebox.Image = Properties.Resources.korong_a;
                 }
                 else
                 {
-                    ujpicturebox.Image = Image.FromFile("korong_b.png");
+                    ujpicturebox.Image = Properties.Resources.korong_b;
                 }
 
                 Label ujlabel = new Label();
@@ -46,7 +49,7 @@ namespace Malom_Game
 
                 int xHelyzet = this.Width / 2 - (ujlabel.Width + ujtextbox.Width) / 2 - 30;
                 int yHelyzet = (this.Height - (ujlabel.Height * 2 + (2 - 1) * 30)) / 2 + (i * (30 + ujlabel.Height)) - 26;
-                ujpicturebox.Location = new Point(xHelyzet - 20, yHelyzet);
+                ujpicturebox.Location = new Point(xHelyzet - 20, yHelyzet - 18);
                 ujlabel.Location = new Point(xHelyzet, yHelyzet);
                 ujtextbox.Location = new Point(ujlabel.Width + ujlabel.Location.X, ujlabel.Location.Y - 3);
 

@@ -64,7 +64,7 @@ namespace Malom_Game
             {
                 nevek.Add(item.Text);
             }
-            new Form1(nevek.Count > 1 && new Random().Next(0, 1) > 0 ? new List<string> { nevek[1], nevek[0] } : nevek).Show();
+            new Form1(nevek).Show();
             this.Hide();
         }
     }

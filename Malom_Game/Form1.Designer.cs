@@ -282,6 +282,7 @@ namespace Malom_Game
             this.MinimumSize = new System.Drawing.Size(976, 675);
             this.Name = "Form1";
             this.Text = "Malom Game Deluxe Remaster DEFINITIVE GOTY";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 
         }

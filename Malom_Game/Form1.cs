@@ -12,10 +12,15 @@ namespace Malom_Game
 {
     public partial class Form1 : Form
     {
-        public Form1()
+        public Form1(List<string> nevek)
         {
             InitializeComponent();
             List<Panel> panelek = new List<Panel>();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

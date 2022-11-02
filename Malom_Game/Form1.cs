@@ -14,6 +14,7 @@ namespace Malom_Game
     {
         Mezo[,,] Palya = new Mezo[3, 3, 3]; // sor, oszlop, z_index
         public Form1()
+        public Form1(List<string> nevek)
         {
             InitializeComponent();
             GeneratePalya();
@@ -54,6 +55,15 @@ namespace Malom_Game
             }
 
 
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

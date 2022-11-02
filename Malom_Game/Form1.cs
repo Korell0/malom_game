@@ -13,7 +13,6 @@ namespace Malom_Game
     public partial class Form1 : Form
     {
         Mezo[,,] Palya = new Mezo[3, 3, 3]; // sor, oszlop, z_index
-        public Form1()
         public Form1(List<string> nevek)
         {
             InitializeComponent();

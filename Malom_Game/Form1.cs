@@ -17,6 +17,14 @@ namespace Malom_Game
         {
             InitializeComponent();
             GeneratePalya();
+            GeneratePlayers(nevek);
+
+        }
+
+        private void GeneratePlayers(List<string> nevek)
+        {
+            groupBox1.Text = nevek[0];
+            groupBox2.Text = nevek[1];
 
         }
 
@@ -25,8 +33,6 @@ namespace Malom_Game
             int nullpozX = 173;
             int nullpozY = 13;
             int gap = 97;
-
-
 
             for (int sor = 0; sor < Palya.GetLength(0); sor++)
             {
@@ -42,7 +48,7 @@ namespace Malom_Game
                             kep.Location = new Point(xHelyzet, yHelyzet);
                             kep.Size = new Size(35, 35);
                             kep.Name = $"kep_{sor}{oszlop}{z_index}";
-                            kep.Visible = false;
+                            kep.BackColor = Color.Transparent;
                             this.Controls.Add(kep);
                             Palya[sor, oszlop, z_index] = new Mezo(kep);
                         } 
@@ -53,13 +59,6 @@ namespace Malom_Game
                     }
                 }
             }
-
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
         }
         protected override void OnFormClosing(FormClosingEventArgs e)
         {

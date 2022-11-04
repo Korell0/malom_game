@@ -42,6 +42,7 @@ namespace Malom_Game
                             kep.Location = new Point(xHelyzet, yHelyzet);
                             kep.Size = new Size(35, 35);
                             kep.Name = $"kep_{sor}{oszlop}{z_index}";
+                            kep.Visible = false;
                             this.Controls.Add(kep);
                             Palya[sor, oszlop, z_index] = new Mezo(kep);
                         } 

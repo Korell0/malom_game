@@ -49,7 +49,7 @@ namespace Malom_Game
             this.ClientSize = new System.Drawing.Size(412, 225);
             this.Controls.Add(this.Start_Btn);
             this.Name = "menu";
-            this.Text = "menu";
+            this.Text = "Menu";
             this.ResumeLayout(false);
 
         }

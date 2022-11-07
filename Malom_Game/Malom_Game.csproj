@@ -97,5 +97,11 @@
   <ItemGroup>
     <None Include="Resources\korong_b.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\malom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\malom_1.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

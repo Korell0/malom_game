@@ -67,7 +67,7 @@ namespace Malom_Game
             this.MaximumSize = new System.Drawing.Size(976, 675);
             this.MinimumSize = new System.Drawing.Size(976, 675);
             this.Name = "Form1";
-            this.Text = "Malom Game Deluxe Remaster DEFINITIVE GOTY";
+            this.Text = "5D Underwater Malom Game 2 Deluxe Remaster DEFINITIVE GOTY";
             this.ResumeLayout(false);
 
         }

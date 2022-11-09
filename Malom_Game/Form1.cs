@@ -24,8 +24,7 @@ namespace Malom_Game
             InitializeComponent();
             GeneratePalya();
             GeneratePlayers(nevek);
-            groupBox2.Enabled = false;
-            ActualPlayer = Player1;
+            groupBox2.Enabled = false;           
         }
 
 

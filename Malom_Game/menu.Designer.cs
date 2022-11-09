@@ -135,6 +135,7 @@ namespace Malom_Game
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Start_Btn);
             this.Controls.Add(this.pictureBox3);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "menu";
             this.Text = "Menü";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();

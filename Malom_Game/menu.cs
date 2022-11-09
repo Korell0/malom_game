@@ -31,7 +31,7 @@ namespace Malom_Game
 
         private void NoiceCheck(TextBox playerName)
         {
-            if (playerName.Text.Length == 0 || player2Name.Text == player1Name.Text)
+            if (playerName.Text.Length == 0 || player2Name.Text == player1Name.Text || player1Name.Text.Length > 10)
             {
                 Start_Btn.Enabled = false;
             }

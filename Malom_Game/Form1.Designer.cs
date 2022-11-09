@@ -32,6 +32,9 @@ namespace Malom_Game
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.actualPicture = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.actualPicture)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -44,6 +47,7 @@ namespace Malom_Game
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Player1";
+            this.groupBox1.MouseCaptureChanged += new System.EventHandler(this.groupBox1_MouseCaptureChanged);
             // 
             // groupBox2
             // 
@@ -55,6 +59,28 @@ namespace Malom_Game
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Player2";
+            this.groupBox2.MouseCaptureChanged += new System.EventHandler(this.groupBox2_MouseCaptureChanged);
+            // 
+            // actualPicture
+            // 
+            this.actualPicture.BackColor = System.Drawing.Color.Transparent;
+            this.actualPicture.Location = new System.Drawing.Point(456, 289);
+            this.actualPicture.Name = "actualPicture";
+            this.actualPicture.Size = new System.Drawing.Size(50, 50);
+            this.actualPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.actualPicture.TabIndex = 5;
+            this.actualPicture.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label1.Location = new System.Drawing.Point(388, 252);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(185, 24);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Kezdődhet a játék!";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 
@@ -62,9 +88,11 @@ namespace Malom_Game
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(960, 636);
+            this.ClientSize = new System.Drawing.Size(956, 632);
+            this.Controls.Add(this.actualPicture);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.label1);
             this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -73,7 +101,10 @@ namespace Malom_Game
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(976, 675);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "5D Underwater Malom Game 2 Deluxe Remaster DEFINITIVE GOTY";
+            this.Click += new System.EventHandler(this.Form1_Click);
+            ((System.ComponentModel.ISupportInitialize)(this.actualPicture)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -82,6 +113,8 @@ namespace Malom_Game
 
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.PictureBox actualPicture;
+        private System.Windows.Forms.Label label1;
     }
 }
 

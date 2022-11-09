@@ -18,7 +18,7 @@ namespace Malom_Game
         public Mezo(PictureBox kep)
         {
             Kep = kep;
-            Szabad = true;
+            Szabad = false;
         }
 
     }

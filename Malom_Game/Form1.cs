@@ -14,17 +14,18 @@ namespace Malom_Game
     {
         static int korongSize = 35;
         static PictureBox Aktiv = new PictureBox();
-        static int korongszam = 9; 
+        static int korongszam = 1; 
         static Mezo[,,] Palya = new Mezo[3, 3, 3]; // sor, oszlop, z_index
         Jatekos Player1;
         Jatekos Player2;
-        Jatekos ActualPlayer = Player1;
+        Jatekos ActualPlayer;
         public Form1(List<string> nevek)
         {
             InitializeComponent();
             GeneratePalya();
             GeneratePlayers(nevek);
-            groupBox2.Enabled = false;           
+            groupBox2.Enabled = false;
+            ActualPlayer = Player1;
         }
 
 
@@ -67,16 +68,20 @@ namespace Malom_Game
 
         private void Kijelol(object sender, EventArgs e, PictureBox kep)
         {
-            Aktiv = kep;
-            for (int sor = 0; sor < Palya.GetLength(0); sor++)
-            {
-                for (int oszlop = 0; oszlop < Palya.GetLength(1); oszlop++)
+            if (ActualPlayer.KezdoKorongok.Contains(kep))
+            {                
+                Aktiv = kep;
+                for (int sor = 0; sor < Palya.GetLength(0); sor++)
                 {
-                    for (int z_index = 0; z_index < Palya.GetLength(2); z_index++)
+                    for (int oszlop = 0; oszlop < Palya.GetLength(1); oszlop++)
                     {
-                        if (Palya[sor, oszlop, z_index] != null && Palya[sor, oszlop, z_index].Kep.Image == null && Palya[sor, oszlop, z_index].Szabad)
+                        for (int z_index = 0; z_index < Palya.GetLength(2); z_index++)
                         {
-                            Palya[sor, oszlop, z_index].Kep.BackColor = Color.Gray;
+                            if (Palya[sor, oszlop, z_index] != null && Palya[sor, oszlop, z_index].Kep.Image == null)
+                            {
+                                Palya[sor, oszlop, z_index].Kep.BackColor = Color.Gray;
+                                Palya[sor, oszlop, z_index].Szabad = true;
+                            }
                         }
                     }
                 }
@@ -108,13 +113,94 @@ namespace Malom_Game
                             this.Controls.Add(kep);
                             Palya[sor, oszlop, z_index] = new Mezo(kep);
 
-                            kep.Click += delegate (object sender, EventArgs e) { Lepes(sender, e, kep); };
+                            kep.Click += delegate (object sender, EventArgs e) { Lerak(sender, e, kep); Mozgat(sender, e, kep); };
 
                             Kerekit(kep);
                         } 
                         else
                         {
                             Palya[sor, oszlop, z_index] = null;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void Mozgat(object sender, EventArgs e, PictureBox kep)
+        {
+            if (ActualPlayer.Lephet && ActualPlayer.JatszoKorongok.Count(x => x.Image == kep.Image) > 0)
+            {
+                int sor = Convert.ToInt32(kep.Name.Split('_')[1][0].ToString());
+                int oszlop = Convert.ToInt32(kep.Name.Split('_')[1][1].ToString());
+                int z_index = Convert.ToInt32(kep.Name.Split('_')[1][2].ToString());
+
+                for (int row = 0; row < Palya.GetLength(0); row++)
+                {
+                    if (Palya[row, oszlop, z_index] != null && Palya[row, oszlop, z_index].Kep.Image == null)
+                    {
+                        MessageBox.Show($"{row},{oszlop},{z_index}");
+                        Palya[row, oszlop, z_index].Szabad = true;
+                        Palya[row, oszlop, z_index].Kep.BackColor = Color.Gray;
+                    }
+                }
+                for (int column = 0; column < Palya.GetLength(1); column++)
+                {
+                    if (Palya[sor, column, z_index] != null && Palya[sor, column, z_index].Kep.Image == null)
+                    {
+                        Palya[sor, column, z_index].Szabad = true;
+                        Palya[sor, column, z_index].Kep.BackColor = Color.Gray;
+                    }
+                }
+                if ((sor % 2 < 1 && oszlop % 2 > 0) || (sor % 2 > 0 && oszlop % 2 < 1))
+                {
+                    for (int z_coord = 0; z_coord < Palya.GetLength(2); z_coord++)
+                    {
+                        if (Palya[sor, oszlop, z_coord] != null && Palya[sor, oszlop, z_coord].Kep.Image == null)
+                        {
+                            Palya[sor, oszlop, z_coord].Szabad = true;
+                            Palya[sor, oszlop, z_coord].Kep.BackColor = Color.Gray;
+                        }
+                    }
+                }
+            }
+        }
+
+        public void Lerak(object sender, EventArgs e, PictureBox kep)
+        {            
+            if (!ActualPlayer.Lephet && Aktiv != null)
+            {
+                if (kep.Image == null)
+                {
+                    kep.Image = Aktiv.Image;
+                    this.Controls.Remove(Aktiv);
+                    ActualPlayer.JatszoKorongok.Add(Aktiv);
+                    ActualPlayer.KezdoKorongok.Remove(Aktiv);
+                    if (ActualPlayer.KezdoKorongok.Count < 1)
+                    {
+                        ActualPlayer.Lephet = true;
+                    }
+                    ActualPlayer.Groupbox.Enabled = false;
+                    ActualPlayer = new List<Jatekos>() { Player1, Player2 }.Find(x => x != ActualPlayer);
+                    ActualPlayer.Groupbox.Enabled = true;
+                }
+                Aktiv = null;
+            }
+            Normalize();
+            
+        }
+
+        private void Normalize()
+        {
+            for (int sor = 0; sor < Palya.GetLength(0); sor++)
+            {
+                for (int oszlop = 0; oszlop < Palya.GetLength(1); oszlop++)
+                {
+                    for (int z_index = 0; z_index < Palya.GetLength(2); z_index++)
+                    {
+                        if (Palya[sor, oszlop, z_index] != null)
+                        {
+                            Palya[sor, oszlop, z_index].Kep.BackColor = Color.Transparent;
+                            Palya[sor, oszlop, z_index].Szabad = false;
                         }
                     }
                 }
@@ -131,58 +217,6 @@ namespace Malom_Game
             gp.AddArc(r.X + r.Width - d, r.Y + r.Height - d, d, d, 0, 90);
             gp.AddArc(r.X, r.Y + r.Height - d, d, d, 90, 90);
             pictureBox1.Region = new Region(gp);
-        }
-
-        public void Lepes(object sender, EventArgs e, PictureBox kep)
-        {            
-            if (Aktiv != null)
-            {
-                if (kep.Image == null)
-                {
-                    kep.Image = Aktiv.Image;
-                    this.Controls.Remove(Aktiv);
-                    ActualPlayer.JatszoKorongok.Add(Aktiv);
-                    ActualPlayer.KezdoKorongok.Remove(Aktiv);
-                    if (ActualPlayer.KezdoKorongok.Count < 1)
-                    {
-                        ActualPlayer.Lephet = true;
-                    }
-                    ActualPlayer = new List<Jatekos>() { Player1, Player2 }.Find(x => x != ActualPlayer);
-                }
-                Aktiv = null;
-            }
-            else if (ActualPlayer.Lephet && ActualPlayer.JatszoKorongok.Contains(kep))
-            {
-                Mozgat(kep);
-            }
-
-            Normalize();
-            MessageBox.Show(Player1.KezdoKorongok[0].Name);
-        }
-
-        private void Mozgat(PictureBox kep)
-        {
-            
-
-
-
-        }
-
-        private void Normalize()
-        {
-            for (int sor = 0; sor < Palya.GetLength(0); sor++)
-            {
-                for (int oszlop = 0; oszlop < Palya.GetLength(1); oszlop++)
-                {
-                    for (int z_index = 0; z_index < Palya.GetLength(2); z_index++)
-                    {
-                        if (Palya[sor, oszlop, z_index] != null)
-                        {
-                            Palya[sor, oszlop, z_index].Kep.BackColor = Color.Transparent;
-                        }
-                    }
-                }
-            }
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)

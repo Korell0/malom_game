@@ -18,13 +18,15 @@ namespace Malom_Game
         static Mezo[,,] Palya = new Mezo[3, 3, 3]; // sor, oszlop, z_index
         Jatekos Player1;
         Jatekos Player2;
-        Jatekos ActualPlayer = Player1;
+        Jatekos ActualPlayer;
         public Form1(List<string> nevek)
         {
             InitializeComponent();
             GeneratePalya();
             GeneratePlayers(nevek);
-            groupBox2.Enabled = false;           
+            groupBox2.Enabled = false;
+
+            ActualPlayer = Player1;
         }
 
 

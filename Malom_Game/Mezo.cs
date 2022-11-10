@@ -12,6 +12,7 @@ namespace Malom_Game
     {
         public PictureBox Kep;
         public bool Szabad;
+        public string JatekosNev;
 
 
 
@@ -19,6 +20,7 @@ namespace Malom_Game
         {
             Kep = kep;
             Szabad = false;
+            JatekosNev = null;
         }
 
     }

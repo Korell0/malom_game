@@ -21,6 +21,7 @@ namespace Malom_Game
         static Jatekos ActualPlayer;
         static bool Kezdes = true;
         static PictureBox Temp = null;
+        static int Malmok = 0;
 
         public Form1(List<string> nevek)
         {
@@ -79,7 +80,7 @@ namespace Malom_Game
                 actualPicture.Image = Image.FromFile($"korong_{ActualPlayer.KorongJel}.png");
             }
 
-            if (ActualPlayer.KezdoKorongok.Count(x => x.Image == kep.Image) > 0)
+            if (ActualPlayer.KezdoKorongok.Count(x => x.Image == kep.Image) > 0 && Malmok < 1)
             {
                 for (int sor = 0; sor < Palya.GetLength(0); sor++)
                 {
@@ -120,8 +121,15 @@ namespace Malom_Game
                             Palya[sor, oszlop, z_index] = new Mezo(kep);
 
                             kep.Click += delegate (object sender, EventArgs e) {
-                                Lerak(sender, e, kep);
-                                KijelolMozgat(sender, e, kep);
+                                if (Malmok < 1)
+                                {
+                                    Lerak(sender, e, kep);
+                                    KijelolMozgat(sender, e, kep);
+                                }
+                                else
+                                {
+                                    Levesz(sender, e, kep);                                    
+                                }
                             };
 
                             Kerekit(kep);
@@ -133,6 +141,19 @@ namespace Malom_Game
                     }
                 }
             }
+        }
+
+        private void Levesz(object sender, EventArgs e, PictureBox kep)
+        {
+            
+            int sor = Convert.ToInt32(kep.Name.Split('_')[1][0].ToString());
+            int oszlop = Convert.ToInt32(kep.Name.Split('_')[1][1].ToString());
+            int z_index = Convert.ToInt32(kep.Name.Split('_')[1][2].ToString());
+
+            Palya[sor, oszlop, z_index].Kep.Image = null;
+            Palya[sor, oszlop, z_index].JatekosNev = null;
+            Malmok--;
+   
         }
 
         private void KijelolMozgat(object sender, EventArgs e, PictureBox kep)
@@ -183,14 +204,17 @@ namespace Malom_Game
                 }
             }
             Normalize();
-
         }
-
         private void KepHelyCsere(PictureBox kep)
         {
+            int sor = Convert.ToInt32(kep.Name.Split('_')[1][0].ToString());
+            int oszlop = Convert.ToInt32(kep.Name.Split('_')[1][1].ToString());
+            int z_index = Convert.ToInt32(kep.Name.Split('_')[1][2].ToString());
+
             if (kep.Image != Aktiv.Image)
             {
                 kep.Image = Aktiv.Image;
+                Palya[sor, oszlop, z_index].JatekosNev = ActualPlayer.Nev;
                 if (!ActualPlayer.Lephet)
                 {
                     this.Controls.Remove(Aktiv);
@@ -199,10 +223,71 @@ namespace Malom_Game
                 }
                 else
                 {
+                    int row = Convert.ToInt32(Aktiv.Name.Split('_')[1][0].ToString());
+                    int col = Convert.ToInt32(Aktiv.Name.Split('_')[1][1].ToString());
+                    int z_ind = Convert.ToInt32(Aktiv.Name.Split('_')[1][2].ToString());
+
+                    Palya[row, col, z_ind].JatekosNev = null;
                     Aktiv.Image = null;
                     ActualPlayerCsere();
                 }
+                MalomCheck(kep);
             }
+        }
+
+        private void MalomCheck(PictureBox kep)
+        {
+            int sor = Convert.ToInt32(kep.Name.Split('_')[1][0].ToString());
+            int oszlop = Convert.ToInt32(kep.Name.Split('_')[1][1].ToString());
+            int z_index = Convert.ToInt32(kep.Name.Split('_')[1][2].ToString());
+
+            int sor_i = 0;
+            int oszlop_i = 0;
+            int z_index_1 = 0;
+
+            for (int i = 0; i < Palya.GetLength(0); i++)
+            {
+                if (Palya[i, oszlop, z_index] == null || Palya[i, oszlop, z_index].JatekosNev != Palya[sor, oszlop, z_index].JatekosNev)
+                {
+                    break;
+                }
+                if (i == Palya.GetLength(0)-1)
+                {
+                    Malmok++;
+                }
+            }
+            for (int i = 0; i < Palya.GetLength(0); i++)
+            {
+                if (Palya[sor, i, z_index] == null || Palya[sor, i, z_index].JatekosNev != Palya[sor, oszlop, z_index].JatekosNev)
+                {
+                    break;
+                }
+                if (i == Palya.GetLength(1) - 1)
+                {
+                    Malmok++;
+                }
+            }
+            if ((sor % 2 < 1 && oszlop % 2 > 0) || (sor % 2 > 0 && oszlop % 2 < 1))
+            {
+                for (int i = 0; i < Palya.GetLength(0); i++)
+                {
+                    if (Palya[sor, oszlop, i] == null || Palya[sor, oszlop, i].JatekosNev != Palya[sor, oszlop, z_index].JatekosNev)
+                    {
+                        break;
+                    }
+                    if (i == Palya.GetLength(2) - 1)
+                    {
+                        Malmok++;
+                    }
+                }
+            }
+
+            if (Malmok >0)
+            {
+                MessageBox.Show($"{Malmok}");
+            }
+
+
         }
 
         private void Lehetoseg(int sor, int oszlop, int z_index, PictureBox kep)
@@ -233,7 +318,6 @@ namespace Malom_Game
             this.Controls.Add(Temp);
             Temp.BringToFront();
             Aktiv.BringToFront();
-
         }
 
         private void ActualPlayerCsere()
@@ -255,7 +339,6 @@ namespace Malom_Game
                         {
                             Palya[sor, oszlop, z_index].Kep.BackColor = Color.Transparent;
                             Palya[sor, oszlop, z_index].Szabad = false;
-                            Palya[sor, oszlop, z_index].Kep.BorderStyle = BorderStyle.None;
                         }
                     }
                 }

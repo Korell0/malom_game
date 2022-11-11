@@ -34,6 +34,7 @@ namespace Malom_Game
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.actualPicture = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.malomLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.actualPicture)).BeginInit();
             this.SuspendLayout();
             // 
@@ -82,6 +83,18 @@ namespace Malom_Game
             this.label1.Text = "Kezdődhet a játék!";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // malomLabel
+            // 
+            this.malomLabel.BackColor = System.Drawing.Color.Transparent;
+            this.malomLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.malomLabel.Location = new System.Drawing.Point(388, 373);
+            this.malomLabel.Name = "malomLabel";
+            this.malomLabel.Size = new System.Drawing.Size(185, 24);
+            this.malomLabel.TabIndex = 6;
+            this.malomLabel.Text = "Malom Van!";
+            this.malomLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.malomLabel.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -89,6 +102,7 @@ namespace Malom_Game
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(956, 632);
+            this.Controls.Add(this.malomLabel);
             this.Controls.Add(this.actualPicture);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -115,6 +129,7 @@ namespace Malom_Game
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.PictureBox actualPicture;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label malomLabel;
     }
 }
 

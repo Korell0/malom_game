@@ -317,6 +317,8 @@ namespace Malom_Game
             if (Malmok > 0 && Levehet_e())
             {
                 ActualPlayerCsere();
+                Jatekos ellenfel = new List<Jatekos>() { Player1, Player2 }.Find(x => x.Nev != ActualPlayer.Nev);
+                actualPicture.Image = Image.FromFile($"korong_{ellenfel.KorongJel}.png");
                 malomLabel.Text = $"Levehetsz {Malmok} korongot";
                 malomLabel.Visible = true;
             } 

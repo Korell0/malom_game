@@ -87,9 +87,9 @@ namespace Malom_Game
             // 
             this.malomLabel.BackColor = System.Drawing.Color.Transparent;
             this.malomLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.malomLabel.Location = new System.Drawing.Point(388, 373);
+            this.malomLabel.Location = new System.Drawing.Point(388, 351);
             this.malomLabel.Name = "malomLabel";
-            this.malomLabel.Size = new System.Drawing.Size(185, 24);
+            this.malomLabel.Size = new System.Drawing.Size(185, 51);
             this.malomLabel.TabIndex = 6;
             this.malomLabel.Text = "Malom Van!";
             this.malomLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

@@ -15,8 +15,8 @@ namespace Malom_Game
         public List<PictureBox> KezdoKorongok;
         public GroupBox Groupbox;
         public bool Lephet;
-        public List<PictureBox> JatszoKorongok;
         public int Korongszam;
+        public bool Ugorhat;
 
         public Jatekos(string nev, int jel, GroupBox groupbox)
         {
@@ -25,8 +25,8 @@ namespace Malom_Game
             KezdoKorongok = new List<PictureBox>();
             Groupbox = groupbox;
             Lephet = false;
-            JatszoKorongok = new List<PictureBox>();
             Korongszam = 0;
+            Ugorhat = false;
         }
 
 

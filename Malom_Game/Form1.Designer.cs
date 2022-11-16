@@ -29,12 +29,14 @@ namespace Malom_Game
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.actualPicture = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.malomLabel = new System.Windows.Forms.Label();
+            this.animation = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.actualPicture)).BeginInit();
             this.SuspendLayout();
             // 
@@ -95,6 +97,11 @@ namespace Malom_Game
             this.malomLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.malomLabel.Visible = false;
             // 
+            // animation
+            // 
+            this.animation.Interval = 1;
+            this.animation.Tick += new System.EventHandler(this.animation_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -130,6 +137,7 @@ namespace Malom_Game
         private System.Windows.Forms.PictureBox actualPicture;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label malomLabel;
+        private System.Windows.Forms.Timer animation;
     }
 }
 

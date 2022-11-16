@@ -22,6 +22,8 @@ namespace Malom_Game
         static bool Kezdes = true;
         static PictureBox Temp = CreateTemp();
         static int Malmok = 0;
+        static int AnimSzam = 0;
+        static PictureBox AnimaltKep = null;
 
         public Form1(List<string> nevek)
         {
@@ -281,7 +283,8 @@ namespace Malom_Game
             int oszlop = Convert.ToInt32(kep.Name.Split('_')[1][1].ToString());
             int z_index = Convert.ToInt32(kep.Name.Split('_')[1][2].ToString());
 
-            kep.Image = Aktiv.Image;
+            MegjelenesAnimacio(kep, Aktiv.Image);
+            //kep.Image = Aktiv.Image;
             Palya[sor, oszlop, z_index].JatekosNev = ActualPlayer.Nev;
             if (!ActualPlayer.Lephet)
             {
@@ -296,6 +299,30 @@ namespace Malom_Game
             }
             ActualPlayerCsere();
             MalomCheck(kep);
+        }
+
+        private void MegjelenesAnimacio(PictureBox kep, Image image)
+        {
+            AnimaltKep = kep;
+            AnimaltKep.Visible = false;
+            AnimaltKep.Image = image;
+            AnimaltKep.Location = new Point(AnimaltKep.Location.X + korongSize / 2, AnimaltKep.Location.Y + korongSize / 2);
+            animation.Start();
+        }
+        private void animation_Tick(object sender, EventArgs e)
+        {
+            AnimSzam++;
+            AnimaltKep.Location = new Point(AnimaltKep.Location.X - 1, AnimaltKep.Location.Y - 1);
+            AnimaltKep.Size = new Size(AnimSzam*2, AnimSzam*2);
+            AnimaltKep.Visible = true;
+
+
+            if (AnimSzam == korongSize/2)
+            {
+                AnimSzam = 0;
+                AnimaltKep = null;
+                animation.Stop();
+            }
         }
 
         private void JatekosNevVisszaallitas()
@@ -460,5 +487,7 @@ namespace Malom_Game
         {
             Normalize();
         }
+
+
     }
 }

@@ -171,9 +171,9 @@ namespace Malom_Game
 
         private void Wincheck()
         {
-            if (ActualPlayer.Lephet && ActualPlayer.Korongszam < 3)
+            Jatekos ellenfel = new List<Jatekos>() { Player1, Player2 }.Find(x => x.Nev != ActualPlayer.Nev);
+            if (ActualPlayer.Lephet && ActualPlayer.Korongszam < 3 || !Mozoghat())
             {
-                Jatekos ellenfel = new List<Jatekos>() { Player1, Player2 }.Find(x => x.Nev != ActualPlayer.Nev);
                 if (DialogResult.Yes == MessageBox.Show($"Gratulálok ezt a játszmát {ellenfel.Nev} nyerte!\nSzeretnétek Újat játszani?", "Győzelem", MessageBoxButtons.YesNo))
                 {
                     Application.Restart();
@@ -183,6 +183,58 @@ namespace Malom_Game
                     Application.Exit();
                 }
             }
+        }
+
+        private bool Mozoghat()
+        {
+            if (ActualPlayer.Ugorhat)
+            {
+                return true;
+            }
+            if (ActualPlayer.Lephet)
+            {
+                for (int sor = 0; sor < Palya.GetLength(0); sor++)
+                {
+                    for (int oszlop = 0; oszlop < Palya.GetLength(1); oszlop++)
+                    {
+                        for (int z_index = 0; z_index < Palya.GetLength(2); z_index++)
+                        {
+                            if (ActualPlayer.Nev == Palya[sor, oszlop, z_index].JatekosNev)
+                            {
+                                for (int i = -1; i <= 1; i++)
+                                {
+                                    if (!(sor + i < 0 || sor + i > Palya.GetLength(0) - 1))
+                                    {
+                                        if (Palya[sor + i, oszlop, z_index] != null && Palya[sor + i, oszlop, z_index].Kep.Image == null)
+                                        {
+                                            return true;
+                                        }
+                                    }
+                                    if (!(oszlop < 0 || oszlop > Palya.GetLength(1) - 1))
+                                    {
+                                        if (Palya[sor, oszlop + i, z_index] != null && Palya[sor, oszlop + i, z_index].Kep.Image == null)
+                                        {
+                                            return true;
+                                        }
+                                    }
+                                    if ((sor % 2 < 1 && oszlop % 2 > 0) || (sor % 2 > 0 && oszlop % 2 < 1))
+                                    {
+                                        if (!(z_index < 0 || z_index > Palya.GetLength(2) - 1))
+                                        {
+                                            if (Palya[sor, oszlop, z_index + i] != null && Palya[sor, oszlop, z_index + i].Kep.Image == null)
+                                            {
+                                                return true;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                return false;
+            }
+            return true;
         }
 
         private void Levesz(PictureBox kep)
@@ -283,8 +335,8 @@ namespace Malom_Game
             int oszlop = Convert.ToInt32(kep.Name.Split('_')[1][1].ToString());
             int z_index = Convert.ToInt32(kep.Name.Split('_')[1][2].ToString());
 
-            MegjelenesAnimacio(kep, Aktiv.Image);
-            //kep.Image = Aktiv.Image;
+            MegjelenesAnimacio(kep);
+            kep.Image = Aktiv.Image;
             Palya[sor, oszlop, z_index].JatekosNev = ActualPlayer.Nev;
             if (!ActualPlayer.Lephet)
             {
@@ -301,11 +353,10 @@ namespace Malom_Game
             MalomCheck(kep);
         }
 
-        private void MegjelenesAnimacio(PictureBox kep, Image image)
+        private void MegjelenesAnimacio(PictureBox kep)
         {
             AnimaltKep = kep;
             AnimaltKep.Visible = false;
-            AnimaltKep.Image = image;
             AnimaltKep.Location = new Point(AnimaltKep.Location.X + korongSize / 2, AnimaltKep.Location.Y + korongSize / 2);
             animation.Start();
         }

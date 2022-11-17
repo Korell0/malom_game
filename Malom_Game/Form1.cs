@@ -13,7 +13,7 @@ namespace Malom_Game
     public partial class Form1 : Form
     {
         static int korongSize = 35;
-        static int korongszam = 9;
+        static int korongszam = 5;
         static Mezo[,,] Palya = new Mezo[3, 3, 3]; // sor, oszlop, z_index
         static PictureBox Aktiv = new PictureBox();
         static Jatekos Player1;
@@ -199,7 +199,7 @@ namespace Malom_Game
                     {
                         for (int z_index = 0; z_index < Palya.GetLength(2); z_index++)
                         {
-                            if (ActualPlayer.Nev == Palya[sor, oszlop, z_index].JatekosNev)
+                            if (Palya[sor, oszlop,z_index] != null && ActualPlayer.Nev == Palya[sor, oszlop, z_index].JatekosNev)
                             {
                                 for (int i = -1; i <= 1; i++)
                                 {
@@ -210,7 +210,7 @@ namespace Malom_Game
                                             return true;
                                         }
                                     }
-                                    if (!(oszlop < 0 || oszlop > Palya.GetLength(1) - 1))
+                                    if (!(oszlop + i < 0 || oszlop + i > Palya.GetLength(1) - 1))
                                     {
                                         if (Palya[sor, oszlop + i, z_index] != null && Palya[sor, oszlop + i, z_index].Kep.Image == null)
                                         {
@@ -219,7 +219,7 @@ namespace Malom_Game
                                     }
                                     if ((sor % 2 < 1 && oszlop % 2 > 0) || (sor % 2 > 0 && oszlop % 2 < 1))
                                     {
-                                        if (!(z_index < 0 || z_index > Palya.GetLength(2) - 1))
+                                        if (!(z_index + i < 0 || z_index + i > Palya.GetLength(2) - 1))
                                         {
                                             if (Palya[sor, oszlop, z_index + i] != null && Palya[sor, oszlop, z_index + i].Kep.Image == null)
                                             {
